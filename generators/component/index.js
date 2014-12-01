@@ -1,6 +1,7 @@
 'use strict';
 var generators = require('yeoman-generator');
 var fs = require('fs');
+var chalk = require('chalk');
 
 var ComponentGenerator =  generators.Base.extend({
   	constructor: function () {
@@ -31,8 +32,6 @@ var ComponentGenerator =  generators.Base.extend({
 	      this.destinationPath(this.path + 'README.md'),
 	      { componentname: this.componentname }
 	    );
-
-	    this.log('created README');
   },
   	createViewModel: function () {
   		
@@ -44,8 +43,6 @@ var ComponentGenerator =  generators.Base.extend({
 	      	name: this.componentname
 	       }
 	    );
-
-	    this.log('created viewModel');
   },
 
 	createView: function () {
@@ -54,8 +51,6 @@ var ComponentGenerator =  generators.Base.extend({
 	      this.destinationPath(this.path + this.filename +'.html'),
 	      { name: this.componentname }
 	    );
-
-	    this.log('created view');
   },
 
   	createTest: function () {
@@ -64,8 +59,6 @@ var ComponentGenerator =  generators.Base.extend({
 	      this.destinationPath(this.path + this.filename +'-test.js'),
 	      { name: this.componentname }
 	    );
-
-	    this.log('created test');
   },
 
   addComponentRegistration: function() {
@@ -83,7 +76,11 @@ var ComponentGenerator =  generators.Base.extend({
             lineToAdd = 'ko.components.register(\'' + this.filename + '\', { require: \'' + modulePath + '\' });',
             newContents = existingContents.replace(regex, '$1' + lineToAdd + '\n$&');
         fs.writeFile(startupFile, newContents);
-        this.log('   registered ' + this.filename + ' in '+ startupFile);
+        this.log('   Registered ' + this.filename + ' in '+ startupFile);
+
+        if (fs.existsSync('gulpfile.js')) {
+            this.log(chalk.magenta('To include in build output, reference ') + chalk.white('\'' + modulePath + '\'') + chalk.magenta(' in ') + chalk.white('gulpfile.js'));
+        }
     });
   }
 
