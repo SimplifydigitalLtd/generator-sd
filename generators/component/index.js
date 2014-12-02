@@ -62,8 +62,12 @@ var ComponentGenerator =  generators.Base.extend({
    this.fs.copyTpl(
      this.templatePath('test.js'),
      this.destinationPath(this.path + this.filename +'-test.js'),
-     { name: this.componentname }
-     );
+     { viewModelClassName: this._.classify(this.componentname + 'ViewModel'),
+     modulePath: 'components/' + this.category + '/' + this.componentname + '/' + this.filename,
+     filename: this.filename,
+     name: this.componentname
+   }
+   );
  },
 
  addComponentRegistration: function() {
