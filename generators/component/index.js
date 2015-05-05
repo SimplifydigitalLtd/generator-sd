@@ -39,7 +39,6 @@ var ComponentGenerator =  generators.Base.extend({
  },
  
  createViewModel: function () {
-
    this.fs.copyTpl(
      this.templatePath('viewModel.js'),
      this.destinationPath(this.path + this.filename +'.js'),

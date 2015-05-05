@@ -1,5 +1,9 @@
 SD - component is a yeoman generator (http://yeoman.io/) for scaffolding new components based on ko components.
 
+Run npm install
+
+
+
 This is how to use it:
 yo sd:component <component name>
 

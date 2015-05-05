@@ -1,0 +1,5 @@
+{
+  "directory": "src/bower_modules",
+  "registry": "http://sdbower.cloudapp.net/",
+  "timeout": 300000
+}
