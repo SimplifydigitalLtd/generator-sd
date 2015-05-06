@@ -1,0 +1,17 @@
+{
+  "name": "<%= slugName %>",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "postal": "~1.0.2",
+    "requirejs": "~2.1.17",
+    "requirejs-text": "~2.0.14",
+    "knockout-projections": "~1.1.0",
+    "knockout": "~3.3.0",
+    "lodash": "~3.8.0",
+    "components-bootstrap": "~3.3.4"
+  },
+  "resolutions": {
+    "knockout": "~3.3.0"
+  }
+}

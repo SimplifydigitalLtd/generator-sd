@@ -1,2 +1,0 @@
-#Bower Component
-

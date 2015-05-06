@@ -70,26 +70,8 @@ var ComponentGenerator =  generators.Base.extend({
  },
 
  addComponentRegistration: function() {
-  var startupFile = 'src/app/startup.js';
-  readIfFileExists.call(this, startupFile, function(existingContents) {
-    var existingRegistrationRegex = new RegExp('\\bko\\.components\\.register\\(\s*[\'"]' + this.filename + '[\'"]');
-      if (existingRegistrationRegex.exec(existingContents)) {
-        this.log(this.filename + ' is already registered in ' + startupFile);
-        return;
-      }
-
-      var token = '// [Scaffolded component registrations will be inserted here. To retain this feature, don\'t remove this comment.]',
-      regex = new RegExp('^(\\s*)(' + token.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&') + ')', 'm'),
-      modulePath = 'components/' + this.category + '/' + this.componentname + '/' + this.filename,
-      lineToAdd = 'ko.components.register(\'' + this.filename + '\', { require: \'' + modulePath + '\' });',
-      newContents = existingContents.replace(regex, '$1' + lineToAdd + '\n$&');
-      fs.writeFile(startupFile, newContents);
-      this.log('   Registered ' + this.filename + ' in '+ startupFile);
-
-      if (fs.existsSync('gulpfile.js')) {
-        this.log(chalk.magenta('To include in build output, reference ') + chalk.white('\'' + modulePath + '\'') + chalk.magenta(' in ') + chalk.white('gulpfile.js'));
-      }
-    });
+  registerComponent(this, 'src/app/startup.js', "");
+  registerComponent(this, 'src/app/startup.bower.js', "bower_modules/moduleName/");
 }
 
 });
@@ -98,6 +80,28 @@ function readIfFileExists(path, callback) {
   if (fs.existsSync(path)) {
     callback.call(this, this.readFileAsString(path));
   }
+}
+
+function registerComponent(generator, startupFile, prefix) {  
+  readIfFileExists.call(generator, startupFile, function(existingContents) {
+    var existingRegistrationRegex = new RegExp('\\bko\\.components\\.register\\(\s*[\'"]' + generator.filename + '[\'"]');
+      if (existingRegistrationRegex.exec(existingContents)) {
+        this.log(generator.filename + ' is already registered in ' + startupFile);
+        return;
+      }
+
+      var token = '// [Scaffolded component registrations will be inserted here. To retain this feature, don\'t remove this comment.]',
+      regex = new RegExp('^(\\s*)(' + token.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&') + ')', 'm'),
+      modulePath = 'components/' + generator.category + '/' + generator.componentname + '/' + generator.filename,
+      lineToAdd = 'ko.components.register(\'' + generator.filename + '\', { require: \'' + prefix + modulePath + '\' });',
+      newContents = existingContents.replace(regex, '$1' + lineToAdd + '\n$&');
+      fs.writeFile(startupFile, newContents);
+      generator.log('   Registered ' + generator.filename + ' in '+ startupFile);
+
+      if (fs.existsSync('gulpfile.js')) {
+        generator.log(chalk.magenta('To include in build output, reference ') + chalk.white('\'' + modulePath + '\'') + chalk.magenta(' in ') + chalk.white('gulpfile.js'));
+      }
+    });
 }
 
 module.exports = ComponentGenerator;

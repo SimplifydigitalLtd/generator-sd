@@ -5,7 +5,7 @@ var helpers = require('yeoman-generator').test;
 var assert = require('yeoman-generator').assert;
 var path = require('path');
 
-xdescribe('sd:component', function () {
+describe('sd:component', function () {
 	beforeEach(function (done) {
 		helpers.run(path.join( __dirname, '../generators/component'))
 		.inDir(path.join( __dirname, './tmp'))  // Clear the directory and set it as the CWD
