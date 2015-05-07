@@ -8,7 +8,7 @@ var path = require('path');
 describe('sd:component', function () {
 	beforeEach(function (done) {
 		helpers.run(path.join( __dirname, '../generators/component'))
-		.inDir(path.join( __dirname, './tmp'))  // Clear the directory and set it as the CWD
+		.inDir(path.join( __dirname, './ctmp'))  // Clear the directory and set it as the CWD
 		.withArguments(['component-name'])              // Mock the arguments
 		.on('ready', function (generator) {
      	 	// this is called right before `generator.run()` is called
