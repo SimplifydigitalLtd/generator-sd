@@ -5,6 +5,7 @@ var require = {
         "bootstrap":            "bower_modules/components-bootstrap/js/bootstrap.min",
         "jquery":               "bower_modules/jquery/dist/jquery",
         "postal":               "bower_modules/postal/lib/postal",
+        "postal-request-response":      "bower_modules/postal.request-response/lib/postal.request-response",
         "lodash":               "bower_modules/lodash/lodash",
         "knockout":             "bower_modules/knockout/dist/knockout",
         "knockout-projections": "bower_modules/knockout-projections/dist/knockout-projections",
